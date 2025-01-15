@@ -1,14 +1,33 @@
 const express = require("express");
 
-const app = express({ extended: false });
+const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded());
+app.get("/hello/:user", (req, res) => {
+  const user = req.params.user;
+  console.log(user);
 
-app.post("/user", (req, res) => {
-  console.log(req.body);
+  res.send(`Hello ${user}`);
+});
 
-  res.send("Nuevo usuario creado");
+app.get("/add/:x/:y", (req, res) => {
+  console.log(req.params.x);
+  console.log(req.params.y);
+
+  const result = Number(req.params.x) + Number(req.params.y);
+
+  console.log(result);
+
+  res.send(`Result: ${result}`);
+});
+
+app.get("/users/:username/photo", (req, res) => {
+  if (req.params.username === "jesus") {
+    return res.sendFile("./javascript.png", {
+      root: __dirname,
+    });
+  }
+
+  res.send("User not authorized");
 });
 
 app.listen(3000, () => {
