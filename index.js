@@ -2,27 +2,32 @@ const express = require("express");
 
 const app = express();
 
-app.get("/products", (req, res) => {
-  // query a database
-  // validate data
-  // process data
-  res.send("List of products");
+app.get("/", (req, res) => {
+  res.send("Hello world");
 });
 
-app.post("/products", (req, res) => {
-  res.send("Creating products");
+app.get("/isAlive", (req, res) => {
+  res.sendStatus(204);
 });
 
-app.put("/products", (req, res) => {
-  res.send("updating a product");
+app.get("/myfile", (req, res) => {
+  res.sendFile("./javascript.png", {
+    root: __dirname,
+  });
 });
 
-app.delete("/products", (req, res) => {
-  res.send("Deleting products");
-});
-
-app.patch("/products", (req, res) => {
-  res.send("Updating a part of a product");
+app.get("/user", (req, res) => {
+  const user = {
+    name: "Jesus",
+    lastName: "Martha",
+    Age: 40,
+    points: [1, 2, 3],
+    adress: {
+      city: "New york",
+      street: "Some street 123",
+    },
+  };
+  res.json(user);
 });
 
 app.listen(3000, () => {
