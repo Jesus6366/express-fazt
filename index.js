@@ -2,11 +2,17 @@ const express = require("express");
 
 const app = express();
 
-app.get("/hello/:user", (req, res) => {
-  const user = req.params.user;
-  console.log(user);
+app.get("/search", (req, res) => {
+  if (req.query.q === "javascript books") {
+    return res.send("List of books about javascript");
+  }
 
-  res.send(`Hello ${user}`);
+  res.send("Normal page");
+});
+
+app.get("/hello/:user", (req, res) => {
+  console.log(req.query);
+  res.send(req.query);
 });
 
 app.get("/add/:x/:y", (req, res) => {
