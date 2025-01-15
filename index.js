@@ -1,33 +1,14 @@
 const express = require("express");
 
-const app = express();
+const app = express({ extended: false });
 
-app.get("/", (req, res) => {
-  res.send("Hello world");
-});
+app.use(express.json());
+app.use(express.urlencoded());
 
-app.get("/isAlive", (req, res) => {
-  res.sendStatus(204);
-});
+app.post("/user", (req, res) => {
+  console.log(req.body);
 
-app.get("/myfile", (req, res) => {
-  res.sendFile("./javascript.png", {
-    root: __dirname,
-  });
-});
-
-app.get("/user", (req, res) => {
-  const user = {
-    name: "Jesus",
-    lastName: "Martha",
-    Age: 40,
-    points: [1, 2, 3],
-    adress: {
-      city: "New york",
-      street: "Some street 123",
-    },
-  };
-  res.json(user);
+  res.send("Nuevo usuario creado");
 });
 
 app.listen(3000, () => {
