@@ -43,7 +43,7 @@ router.delete("/products/:id", (req, res) => {
   const foundProduct = products.find((product) => product.id === id);
 
   if (!foundProduct) {
-    return res.status(404).json({ message: "Product not found" });
+    return res.status(404).json({ message: "Product not found " });
   }
 
   products = products.filter((product) => {
