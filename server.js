@@ -13,6 +13,7 @@ let products = [
 // middlewares
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(express.static("./static"));
 
 // routes
 app.get("/products", (req, res) => {
