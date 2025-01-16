@@ -10,24 +10,24 @@ let products = [
   },
 ];
 
-router.get("/products", (req, res) => {
+router.get("/api/products", (req, res) => {
   res.json(products);
 });
 
-router.post("/products", (req, res) => {
+router.post("/api/products", (req, res) => {
   const newProduct = { ...req.body, id: products.length + 1 };
   products.push(newProduct);
   res.send(products);
 });
 
-router.put("/products/:id", (req, res) => {
+router.put("/api/products/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const newProduct = req.body;
 
   const foundProduct = products.find((product) => product.id === id);
 
   if (!foundProduct) {
-    return res.status(404).json({ message: "Product not found" });
+    return res.status(404).json({ message: "Product not found " });
   }
 
   products = products.map((product) =>
@@ -37,7 +37,7 @@ router.put("/products/:id", (req, res) => {
   res.status(200).json(products);
 });
 
-router.delete("/products/:id", (req, res) => {
+router.delete("/api/products/:id", (req, res) => {
   const id = parseInt(req.params.id);
 
   const foundProduct = products.find((product) => product.id === id);
@@ -53,7 +53,7 @@ router.delete("/products/:id", (req, res) => {
   res.status(200).json(products);
 });
 
-router.get("/products/:id", (req, res) => {
+router.get("/api/products/:id", (req, res) => {
   const id = req.params.id;
 
   const foundProduct = products.find((product) => product.id === parseInt(id));
