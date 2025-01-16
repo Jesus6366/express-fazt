@@ -2,6 +2,13 @@ import express from "express";
 import morgan from "morgan";
 
 const app = express();
+const products = [
+  {
+    id: 1,
+    name: "laptop",
+    price: 3000,
+  },
+];
 
 // middlewares
 app.use(express.json());
@@ -9,11 +16,13 @@ app.use(morgan("dev"));
 
 // routes
 app.get("/products", (req, res) => {
-  res.send("Getting products");
+  res.json(products);
 });
 
 app.post("/products", (req, res) => {
-  res.send("Creating products");
+  const newProduct = { ...req.body, id: products.length + 1 };
+  products.push(newProduct);
+  res.send(products);
 });
 
 app.put("/products", (req, res) => {
@@ -25,7 +34,14 @@ app.delete("/products", (req, res) => {
 });
 
 app.get("/products/:id", (req, res) => {
-  res.send("Getting one product");
+  const id = req.params.id;
+
+  const foundProduct = products.find((product) => product.id === parseInt(id));
+  if (foundProduct) {
+    return res.json(foundProduct);
+  }
+
+  res.status(404).json({ message: "Product not found" });
 });
 
 app.listen(3000, () => {
